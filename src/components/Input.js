@@ -17,7 +17,9 @@ class Input extends React.Component {
           onChange={ onChange }
         >
           {options.map((option) => (
-            <option key={ option }>
+            <option
+              key={ option }
+            >
               { option }
             </option>))}
         </select>

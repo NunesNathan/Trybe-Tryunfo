@@ -2,6 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import Button from './Button';
 import Input from './Input';
+import Attr from './Attr';
 
 class Form extends React.Component {
   render() {
@@ -16,7 +17,9 @@ class Form extends React.Component {
       // hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick } = this.props;
+      onSaveButtonClick,
+    } = this.props;
+    const max = 90;
     return (
       <form>
         <Input
@@ -37,30 +40,33 @@ class Form extends React.Component {
           value={ cardDescription }
           onChange={ onInputChange }
         />
-        <Input
+        <Attr
           id="attr1"
           name="cardAttr1"
           label="Primeiro Atributo da Carta"
           type="number"
           test="attr1"
+          max={ max }
           value={ cardAttr1 }
           onChange={ onInputChange }
         />
-        <Input
+        <Attr
           id="attr2"
           name="cardAttr2"
           label="Segundo atributo da carta"
           type="number"
           test="attr2"
+          max={ max }
           value={ cardAttr2 }
           onChange={ onInputChange }
         />
-        <Input
+        <Attr
           id="attr3"
           name="cardAttr3"
           label="Terceiro atributo da carta"
           type="number"
           test="attr3"
+          max={ max }
           value={ cardAttr3 }
           onChange={ onInputChange }
         />
