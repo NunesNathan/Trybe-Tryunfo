@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import Button from './Button';
 import Input from './Input';
 import Attr from './Attr';
+import Checkbox from './Checkbox';
 
 class Form extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
@@ -89,12 +90,13 @@ class Form extends React.Component {
           value={ cardRare }
           onChange={ onInputChange }
         />
-        <Input
+        <Checkbox
           id="trunfo"
           name="cardTrunfo"
           label="Carta Super Trunfo?"
           type="checkbox"
           test="trunfo"
+          hasTrunfo={ hasTrunfo }
           checked={ cardTrunfo }
           onChange={ onInputChange }
         />
@@ -119,7 +121,7 @@ Form.propTypes = {
   cardImage: PropType.string.isRequired,
   cardRare: PropType.string.isRequired,
   cardTrunfo: PropType.bool.isRequired,
-  // hasTrunfo: PropType.bool.isRequired,
+  hasTrunfo: PropType.bool.isRequired,
   isSaveButtonDisabled: PropType.bool.isRequired,
   onInputChange: PropType.func.isRequired,
   onSaveButtonClick: PropType.func.isRequired,

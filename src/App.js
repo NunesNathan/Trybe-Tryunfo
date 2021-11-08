@@ -16,8 +16,9 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       checked: false,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
-      card: 0,
+      card: [],
     };
   }
 
@@ -49,7 +50,6 @@ class App extends React.Component {
   switchButton = () => {
     const arry = [this.isUnchanged(), this.isBiggestMax(), this.isBiggestNinety()];
     const result = arry.some((each) => each === true);
-    // this.state.isSaveButtonDisabled = result;
     this.setState({
       isSaveButtonDisabled: result,
     });
@@ -63,13 +63,38 @@ class App extends React.Component {
     }, () => this.switchButton());
   }
 
+  hasSomeTrunfo = () => {
+    const { card } = this.state;
+    return card.some((each) => (each.hasTrunfo === true))
+      ? (
+        this.setState({
+          hasTrunfo: true,
+        })
+      ) : (
+        this.setState({
+          hasTrunfo: false,
+        })
+      );
+  }
+
   saveButtonFunc = (e) => {
     e.preventDefault();
-    let { card } = this.state;
-    const obj = { ...this.state };
-    this.state[`card${card}`] = obj;
+    const { card, cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, checked, cardTrunfo } = this.state;
+    const obj = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      checked,
+      hasTrunfo: cardTrunfo,
+    };
+    card.push(obj);
+
     this.setState({
-      card: (card += 1),
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -77,9 +102,8 @@ class App extends React.Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: '',
-      checked: false,
       isSaveButtonDisabled: true,
-    });
+    }, () => this.hasSomeTrunfo());
   }
 
   render() {
