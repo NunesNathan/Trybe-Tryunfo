@@ -19,6 +19,7 @@ class Input extends React.Component {
           {options.map((option) => (
             <option
               key={ option }
+              value={ option }
             >
               { option }
             </option>))}

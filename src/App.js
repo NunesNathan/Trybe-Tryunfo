@@ -17,6 +17,7 @@ class App extends React.Component {
       cardRare: '',
       checked: false,
       isSaveButtonDisabled: true,
+      card: 0,
     };
   }
 
@@ -25,7 +26,6 @@ class App extends React.Component {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
     } = this.state;
     const arr = [cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage];
-    console.log(arr);
     return arr.includes('');
   }
 
@@ -49,7 +49,10 @@ class App extends React.Component {
   switchButton = () => {
     const arry = [this.isUnchanged(), this.isBiggestMax(), this.isBiggestNinety()];
     const result = arry.some((each) => each === true);
-    this.state.isSaveButtonDisabled = result;
+    // this.state.isSaveButtonDisabled = result;
+    this.setState({
+      isSaveButtonDisabled: result,
+    });
   }
 
   stater = (param) => {
@@ -57,18 +60,36 @@ class App extends React.Component {
     const response = type === 'checkbox' ? checked : value;
     this.setState({
       [name]: response,
+    }, () => this.switchButton());
+  }
+
+  saveButtonFunc = (e) => {
+    e.preventDefault();
+    let { card } = this.state;
+    const obj = { ...this.state };
+    this.state[`card${card}`] = obj;
+    this.setState({
+      card: (card += 1),
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: '',
+      checked: false,
+      isSaveButtonDisabled: true,
     });
   }
 
-  // sugestão do ary, pra resolver o delay
   render() {
-    this.switchButton();
     return (
       <div>
         <h1>Tryunfo do neithans</h1>
         <Form
           { ...this.state }
           onInputChange={ this.stater }
+          onSaveButtonClick={ this.saveButtonFunc }
         />
         <Card { ...this.state } />
       </div>
