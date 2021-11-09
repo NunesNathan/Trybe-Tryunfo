@@ -106,16 +106,30 @@ class App extends React.Component {
     }, () => this.hasSomeTrunfo());
   }
 
+  createCards = () => {
+    const { card } = this.state;
+    return (
+      card.map((each) => <Card key={ each.cardName } { ...each } />)
+    );
+  }
+
   render() {
     return (
       <div>
-        <h1>Tryunfo do neithans</h1>
-        <Form
-          { ...this.state }
-          onInputChange={ this.stater }
-          onSaveButtonClick={ this.saveButtonFunc }
-        />
-        <Card { ...this.state } />
+        <div>
+          <h1>Tryunfo do neithans</h1>
+          <Form
+            { ...this.state }
+            onInputChange={ this.stater }
+            onSaveButtonClick={ this.saveButtonFunc }
+          />
+          <Card { ...this.state } />
+        </div>
+        <div>
+          <ul>
+            { this.createCards() }
+          </ul>
+        </div>
       </div>
     );
   }
