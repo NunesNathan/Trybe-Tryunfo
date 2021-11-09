@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './components/Button';
 import Card from './components/Card';
 import Form from './components/Form';
 
@@ -81,7 +82,9 @@ class App extends React.Component {
     e.preventDefault();
     const { card, cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, checked, cardTrunfo } = this.state;
+    const cardID = `${cardName}${cardDescription}${cardAttr2}`;
     const obj = {
+      cardID,
       cardName,
       cardDescription,
       cardAttr1,
@@ -106,10 +109,29 @@ class App extends React.Component {
     }, () => this.hasSomeTrunfo());
   }
 
+  /* delCard function foi baseada na função onDeleteButtonClick do
+  Gabriel Pinheiro no repositorio
+  https://github.com/tryber/sd-016-b-project-tryunfo/pull/25 */
+
+  delCard = (e) => {
+    const { card } = this.state;
+    if (e.hasTrunfo) {
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
+    const remainderCards = card.filter((each) => each.cardID !== e.cardID);
+    this.setState({ card: remainderCards });
+  }
+
   createCards = () => {
     const { card } = this.state;
     return (
-      card.map((each) => <Card key={ each.cardName } { ...each } />)
+      card.map((each) => (
+        <li key={ each.cardName }>
+          <Card { ...each } />
+          <Button test="delete" text="Excluir" onClick={ () => this.delCard(each) } />
+        </li>))
     );
   }
 

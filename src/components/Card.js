@@ -13,7 +13,7 @@ class Card extends React.Component {
       cardTrunfo,
       max } = this.props;
     return (
-      <li>
+      <div>
         <span data-testid="name-card">{ cardName }</span>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         <p data-testid="description-card">{ cardDescription }</p>
@@ -25,7 +25,7 @@ class Card extends React.Component {
           cardTrunfo
           && <span data-testid="trunfo-card"> Super Trunfo! </span>
         }
-      </li>
+      </div>
     );
   }
 }
